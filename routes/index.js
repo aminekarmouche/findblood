@@ -5,7 +5,7 @@ const request = require('request')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  
+/*  
   const config = {
     user     : 'admin',
     password : 'passpass123!',
@@ -55,7 +55,7 @@ router.get('/', function(req, res, next) {
     }
   });
   //pool.close();
-
+*/
   /*
   request('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=VXKTEVYG3RAHX6AC', function (error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -76,7 +76,7 @@ router.get('/', function(req, res, next) {
 
 
 
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'FindBlood' });
 });
 
 module.exports = router;
