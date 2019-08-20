@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var googleMapsClient = require('@google/maps').createClient({
-    key: 'AIzaSyBODpepyJZhwLboDrq761_rtwsz7cP3umU'
+    key: ''
     });
   
 /* GET users listing. */
