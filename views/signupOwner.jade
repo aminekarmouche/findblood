@@ -1,0 +1,72 @@
+extends layout
+
+block content
+  h1=title
+  //Register forms
+  h1 Signup Owner
+  form(method='POST' action='')
+    div.form-group
+      label(for='firstName') Your first name:
+      br
+      input#firstName.form-control(type='text', placeholder='Input' name='firstName' required='true')
+      br
+      
+      label(for='lastName') Your last name:
+      br
+      input#lastname.form-control(type='text', placeholder='Input' name='lastName' required='true')
+      br
+      
+      label(for='userName') Your username:
+      br
+      input#userName.form-control(type='text', placeholder='Input' name='userName' required='true')
+      br
+      label(for='email') Your email:
+      br
+      input#email.form-control(type='text', placeholder='Input' name='email' required='true')
+      br
+      
+      label(for='password') Your password:
+      br
+      input#password.form-control(type='text', placeholder='Input' name='password' required='true')
+      br
+      
+      label(for='password2') Re-enter your password:
+      br
+      input#password2.form-control(type='text', placeholder='Input' name='password2' required='true')
+      br
+      h2 Info about the center
+      br
+      label(for='centerName') enter the name of the center:
+      br
+      input#centerName.form-control(type='text', placeholder='Input' name='centerName' required='true')
+      br
+
+      label(for='city') enter the city name:
+      br
+      input#city.form-control(type='text', placeholder='Input' name='city' required='true')
+      br
+
+      label(for='district') enter the district of the center:
+      br
+      input#district.form-control(type='text', placeholder='Input' name='district' required='true')
+      br
+
+      label(for='street') enter the street of the center:
+      br
+      input#street.form-control(type='text', placeholder='Input' name='street' required='true')
+      br
+
+      label(for='zipcode') enter your zipcode:
+      br
+      input#zipcode.form-control(type='text', placeholder='Input' name='zipcode' required='true')
+      br        
+      
+    div.form-group
+    button.btn.btn-primary(type='submit') Submit
+      
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg
+
+    Terms
