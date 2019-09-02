@@ -4,19 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose= require('mongoose');
-//var flash = require('connect-flash');
+var session = require('express-session');
+var flash = require('connect-flash');
 var passport = require('passport');
-
-
-
 
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 var indexRouter = require('./routes/index');
-//var usersRouter = require('./routes/signup');
 var pricesRouter = require('./routes/prices')
 var centersRouter = require('./routes/centers');
 var signupRouter = require('./routes/signup');
+
+require('./config/passport')(passport);
 
 var app = express();
 //connect to database
@@ -29,7 +28,21 @@ mongoose.connect(mongoDB, { useNewUrlParser: true })
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-//app.use(flash());
+//session
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+app.use(flash());
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+//
 
 app.use(logger('dev'));
 app.use(express.json());

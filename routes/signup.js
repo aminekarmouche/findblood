@@ -23,7 +23,7 @@ router.post('/donor',[
   check('password2').isLength({min:2}).withMessage('Re enter the password')
 ],
 (req,res,next)=>{
-  const errs = validationResult(req);
+   errs = validationResult(req);
   if (!errs.isEmpty()) {
     return res.status(422).json({ errs: errs.array()});
   }
