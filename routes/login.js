@@ -5,6 +5,11 @@ const {ensureAuthenticated} = require('../config/secure_content');
 var email;
 
 /* GET users listing. */
+router.get('/', (req, res, next)=>{
+  res.render('login');
+});
+
+/* GET users listing. */
 router.get('/owner', (req, res, next)=>{
     res.render('loginOwner');
 });
