@@ -8,6 +8,10 @@ const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator/check');
 const { check } = require('express-validator');
 
+/* GET signup page. */
+router.get('/', (req, res, next)=>{
+  res.render('signup');
+});
 
 /* donor signup */
 router.get('/donor', (req, res, next)=> {

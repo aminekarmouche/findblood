@@ -4,7 +4,7 @@ var passport = require('passport');
 const {ensureAuthenticated} = require('../config/secure_content');
 var email;
 
-/* GET users listing. */
+/* GET login page. */
 router.get('/', (req, res, next)=>{
   res.render('login');
 });
