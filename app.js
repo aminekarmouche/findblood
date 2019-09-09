@@ -14,6 +14,7 @@ var indexRouter = require('./routes/index');
 var pricesRouter = require('./routes/prices')
 var centersRouter = require('./routes/centers');
 var signupRouter = require('./routes/signup');
+var forgotRouter = require('./routes/forgot');
 
 require('./config/passport')(passport);
 
@@ -50,6 +51,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use(function(req, res, next){
+  res.locals.user = req.user;
+  next();
+  });
+
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);
 app.use('/prices', pricesRouter);
@@ -57,6 +64,9 @@ app.use('/centers', centersRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/forgot', forgotRouter);
+
+
 
 
 // catch 404 and forward to error handler

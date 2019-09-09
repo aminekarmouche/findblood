@@ -39,11 +39,11 @@ router.post('/owner', (req, res, next) => {
     });
 
 router.get('/loggedOwner',ensureAuthenticated, (req, res, next)=>{
-  res.render('loggedOwner', {email});
+  res.render('loggedOwner', {email: email, user: req.user});
 });
 
 router.get('/loggedDonor',ensureAuthenticated, (req, res, next)=>{
-  res.render('loggedDonor', {email});
+  res.render('loggedDonor', {email: email, user: req.user});
 });
 
 router.get('/logout', (req, res) => {

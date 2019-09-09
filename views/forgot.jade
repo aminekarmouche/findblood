@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1=title
+  //recovery form
+  h1 Forgot password
+  form(method='POST' action='')
+    div.form-group
+      br
+      label(for='email') Your email:
+      br
+      input#email.form-control(type='email', placeholder='Input' name='email' required='true')
+      br
+            
+    div.form-group
+    button.btn.btn-primary(type='submit') Reset
+      
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg
+
+    Terms
