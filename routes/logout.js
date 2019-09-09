@@ -9,7 +9,8 @@ router.get('/donor', (req, res) => {
 
   router.get('/owner', (req, res) => {
     req.logout();
-    res.redirect('/login/owner');
+    res.redirect('/');
+    //res.redirect('/');
   });
 
 module.exports = router;
