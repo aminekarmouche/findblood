@@ -15,6 +15,7 @@ var pricesRouter = require('./routes/prices')
 var centersRouter = require('./routes/centers');
 var signupRouter = require('./routes/signup');
 var forgotRouter = require('./routes/forgot');
+var resetRouter = require('./routes/reset');
 
 require('./config/passport')(passport);
 
@@ -65,9 +66,7 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/forgot', forgotRouter);
-
-
-
+app.use('/reset', resetRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

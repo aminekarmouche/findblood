@@ -6,18 +6,6 @@ var router = express.Router();
   
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-// // Geocode an address.
-// googleMapsClient.geocode({
-//   address: '1600 Amphitheatre Parkway, Mountain View, CA'
-// }, function(err, response) {
-//   if (!err) {
-//     console.log(response);
-//   }
-//   else
-//     console.log(err);
-// });
-
-
     res.render('centers', { title: 'Center' });
 });
 

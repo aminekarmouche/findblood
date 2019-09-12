@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Donor = require('../models/donor');
-const Owner = require('../models/owner');
+const User = require('../models/user');
 const Center = require('../models/center');
 const Address = require('../models/address');
 const bcrypt = require('bcryptjs');
@@ -13,94 +12,7 @@ router.get('/', (req, res, next)=>{
   res.render('signup');
 });
 
-/* donor signup */
-router.get('/donor', (req, res, next)=> {
-  res.render('signupDonor');
-});
-
-router.post('/donor',[
-  check('firstName').isLength({min:2}).withMessage('The first name must be entered'),
-  check('lastName').isLength({min:2}).withMessage('The last name must be entered'),
-  check('userName').isLength({min:2}).withMessage('The username must be entered'),
-  check('email').isEmail().withMessage('The username should be formatted as an email'),
-  check('password').isLength({min:6}).withMessage('Password should be at least 6 characters'),
-  check('password2').isLength({min:2}).withMessage('Re enter the password')
-],
-(req,res,next)=>{
-   errs = validationResult(req);
-  if (!errs.isEmpty()) {
-    return res.status(422).json({ errs: errs.array()});
-  }
-  else{
-
-    
-    const { firstName, lastName, userName,email, password, password2, bloodType } = req.body;
-    console.log(bloodType);
-    
-    let errors = [];
-
-    if (!bloodType) {
-      errors.push({ msg: 'Please enter all fields' });
-    }
-
-    if (password != password2) {
-      errors.push({ msg: 'Passwords do not match' });
-    }
-
-    if (errors.length > 0) {
-      res.render('signupDonor', {
-        errors,
-        firstName,
-        lastName,
-        userName,
-        email,
-        password,
-        password2,
-        bloodType
-      });
-    } else {
-      Donor.findOne({ email: email }).then(user => {
-        if (user) {
-          errors.push({ msg: 'Email already exists' });
-          res.render('signupDonor', {
-            errors,
-            firstName,
-            userName
-          });
-        } else {
-          const newDonor = new Donor({
-            firstName,
-            lastName,
-            userName,
-            email,
-            password,
-            bloodType
-          });
-          //res.redirect('/users/login');
-
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newDonor.password, salt, (err, hash) => {
-              if (err) throw err;
-              newDonor.password = hash;
-              newDonor
-                .save()
-                .then(user => {
-                  res.redirect('/signup/donor');
-                })
-                .catch(err => console.log(err));
-            });
-          });
-        }
-      });
-    }
-}
-});
-/* owner of centers signup*/
-router.get('/owner', (req, res, next)=> {
-  res.render('signupOwner');
-});
-
-router.post('/owner',[
+router.post('/',[
   check('firstName').isLength({min:2}).withMessage('The first name must be entered'),
   check('lastName').isLength({min:2}).withMessage('The last name must be entered'),
   check('userName').isLength({min:2}).withMessage('The username must be entered'),
@@ -121,7 +33,7 @@ router.post('/owner',[
   else{
 
     
-    const { firstName, lastName, userName,email, password, password2,centerName, city, district, street, zipcode } = req.body;
+    const { firstName, lastName, userName, email, role, password, password2, centerName, city, district, street, zipcode } = req.body;
     
     
     let errors = [];
@@ -131,16 +43,16 @@ router.post('/owner',[
     }
 
     if (errors.length > 0) {
-      res.render('signupOwner', {
+      res.render('signup', {
         errors,
         firstName,
         userName
       });
     } else {
-      Owner.findOne({ email: email }).then(user => {
+      User.findOne({ email: email }).then(user => {
         if (user) {
           errors.push({ msg: 'Email already exists' });
-          res.render('signupOwner', {
+          res.render('signup', {
             errors,
             firstName,
             userName
@@ -152,7 +64,7 @@ router.post('/owner',[
             street,
             zipcode
           });
-          const newOwner = new Owner({
+          const newUser = new User({
             firstName,
             lastName,
             userName,
@@ -163,22 +75,24 @@ router.post('/owner',[
           const newCenter = new Center({
             centerName,
             address : newAddress._id,
-            owner : newOwner._id
+            owner : newUser._id
           });
 
           newAddress.save();
           newCenter.save();
 
           //res.redirect('/users/login');
-
+          newUser.role = role;
           bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newOwner.password, salt, (err, hash) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
               if (err) throw err;
-              newOwner.password = hash;
-              newOwner
+              newUser.resetPasswordToken = undefined;
+              newUser.resetPasswordExpires = undefined;
+              newUser.password = hash;
+              newUser
                 .save()
                 .then(user => {
-                  res.redirect('/signup/owner');
+                  res.redirect('/signup');
                 })
                 .catch(err => console.log(err));
             });

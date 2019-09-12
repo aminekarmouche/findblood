@@ -2,9 +2,23 @@ extends layout
 
 block content
     h1 Login 
-    h3 Owner
-    a(href='/login/owner')
-        button.btn.btn-primary Owner 
-    h3 Donor    
-    a(href='/login/donor')
-        button.btn.btn-primary Donor
+    form(method='POST' action='/login')
+        div.form-group
+        label(for='email') Your khra email:
+        br
+        input#email.form-control(type='email', placeholder='Input' name='email' required='true')
+        br
+        br
+        label(for='password') Your password:
+        br
+        input#password.form-control(type='password', placeholder='Input' name='password' required='true')
+        br            
+        div.form-group
+        button.btn.btn-primary(type='submit') Submit
+        
+    if errors 
+        ul
+        for error in errors
+            li!= error.msg
+
+        Terms

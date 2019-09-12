@@ -9,41 +9,17 @@ router.get('/', (req, res, next)=>{
   res.render('login');
 });
 
-/* GET users listing. */
-router.get('/owner', (req, res, next)=>{
-    res.render('loginOwner');
-});
-
-router.get('/donor', (req, res, next)=>{
-  res.render('loginDonor');
-});
-
-
-router.post('/owner', (req, res, next) => {
+router.post('/', (req, res, next) => {
   email = req.body.email;
-    passport.authenticate('owner-local', {
-      successRedirect: '/login/loggedOwner',
-      failureRedirect: '/login/owner',
+    passport.authenticate('user-local', {
+      successRedirect: '/centers',
+      failureRedirect: '/',
       failureFlash: true
     })(req, res, next);
-  });
+  });    
 
-
-  router.post('/donor', (req, res, next) => {
-    email = req.body.email;
-      passport.authenticate('donor-local', {
-        successRedirect: '/login/loggedDonor',
-        failureRedirect: '/login/donor',
-        failureFlash: true
-      })(req, res, next);
-    });
-
-router.get('/loggedOwner',ensureAuthenticated, (req, res, next)=>{
-  res.render('loggedOwner', {email: email, user: req.user});
-});
-
-router.get('/loggedDonor',ensureAuthenticated, (req, res, next)=>{
-  res.render('loggedDonor', {email: email, user: req.user});
+router.get('/loggedUser',ensureAuthenticated, (req, res, next)=>{
+  res.render('loggedUser', {email: email, user: req.user});
 });
 
 router.get('/logout', (req, res) => {
