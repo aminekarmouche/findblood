@@ -1,6 +1,5 @@
 let express = require('express');
 let  router = express.Router();
-let aws = require('aws-sdk');
 
 //could import config
 

@@ -19,14 +19,15 @@ require('./config/passport')(passport);
 
 var app = express();
 //connect to database
-var mongoDB =  'mongodb+srv://Mehdi:DatabaseMehdy!123@cluster0-lnhl4.mongodb.net/test?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, { useNewUrlParser: true })
+var mongoDB = 'mongodb://Mehdi:DatabaseMehdy!123@cluster0-shard-00-00-lnhl4.mongodb.net:27017,cluster0-shard-00-01-lnhl4.mongodb.net:27017,cluster0-shard-00-02-lnhl4.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true';
+mongoose.connect(
+  mongoDB)
   .then(() => console.log("MongoDb connected"))
   .catch(err => console.log(err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 //session
 app.use(
