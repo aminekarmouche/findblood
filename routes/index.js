@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const sql = require('mssql');
-const request = require('request')
+const axios = require('axios');
+const { S3Client, ListBucketsCommand } = require("@aws-sdk/client-s3");
+const client = new S3Client({ region: "us-east-2" });
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -72,9 +74,6 @@ router.get('/', function(req, res, next) {
    }
 })  
 */
-
-
-
 
   res.render('index', { title: 'FindBlood' });
 });

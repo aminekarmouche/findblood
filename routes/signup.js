@@ -5,8 +5,7 @@ const Owner = require('../models/owner');
 const Center = require('../models/center');
 const Address = require('../models/address');
 const bcrypt = require('bcryptjs');
-const { validationResult } = require('express-validator/check');
-const { check } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 
 /* donor signup */
